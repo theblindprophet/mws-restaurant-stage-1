@@ -101,6 +101,33 @@ nav h1 a {
 	color: #01447e;
 	text-decoration: underline;
 }
+/* ====================== Skip ====================== */
+/* https://accessibility.oit.ncsu.edu/it-accessibility-at-nc-state/developers/accessibility-handbook/mouse-and-keyboard-events/skip-to-main-content/ */
+a.skip-main {
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+}
+a.skip-main:focus, a.skip-main:active {
+    color: #fff;
+    background-color: #000;
+    left: auto;
+    top: auto;
+    width: 30%;
+    height: auto;
+    overflow:auto;
+    margin: 10px 35%;
+    padding: 5px;
+    border-radius: 15px;
+    border: 4px solid #3397DB;
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 999;
+}
 /* ====================== Map ====================== */
 #map {
 	height: 400px;

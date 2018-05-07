@@ -15,11 +15,13 @@
         </nav>
     </header>
 
-    <main id="maincontent">
+    <a class="skip-main" href="#mainsection">Skip to main content</a>
+
+    <main id="maincontent" tabindex="-1">
         <section id="map-container">
-            <div id="map"></div>
+            <div id="map" role="geomap"></div>
         </section>
-        <section>
+        <section id="mainsection" aria-label="Filter Results">
             <div class="filter-options">
                 <h2>Filter Results</h2>
                 <span>
