@@ -8,6 +8,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
     fetchNeighborhoods();
     fetchCuisines();
+    listenFocusSelect();
 });
 
 /**
@@ -77,6 +78,14 @@ window.initMap = () => {
         zoom: 12,
         center: loc,
         scrollwheel: false
+    });
+    // Remove tabindex from map
+    google.maps.event.addListener(self.map, "tilesloaded", function() {
+        setTimeout(() => {
+            [].slice.apply(document.querySelectorAll('#map a')).forEach(function(item) {
+                item.setAttribute('tabIndex','-1');
+            });
+        }, 600);
     });
     updateRestaurants();
 }
@@ -188,6 +197,19 @@ addMarkersToMap = (restaurants = self.restaurants) => {
             window.location.href = marker.url
         });
         self.markers.push(marker);
+    });
+}
+
+listenFocusSelect = () => {
+    document.querySelectorAll('.filter-options select').forEach(el => {
+        el.addEventListener('focus', e => {
+            e.srcElement.parentElement.classList.add('focused');
+        });
+    });
+    document.querySelectorAll('.filter-options select').forEach(el => {
+        el.addEventListener('focusout', e => {
+            e.srcElement.parentElement.classList.remove('focused');
+        });
     });
 }
 
