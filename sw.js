@@ -24,6 +24,7 @@ self.addEventListener('install', event => {
  * largest. We can assume that if the user requested a certain size image
  * because on a certain size device then their device's size will most
  * likely not change, therefore they will request the same size image again.
+ * It does, however, take 2 loads of the page before the user will store images
  */
 self.addEventListener('fetch', event => {
     // Requesting images
@@ -32,7 +33,6 @@ self.addEventListener('fetch', event => {
             if(response) return response;
             // Add images to cache for next time
             if(event.request.url.endsWith('.jpg') || event.request.url.endsWith('.html')) {
-                console.log(event.request.url);
                 addToCache(event.request.url);
             }
             return fetch(event.request);
