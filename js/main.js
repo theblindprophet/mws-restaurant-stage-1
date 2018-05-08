@@ -9,7 +9,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchNeighborhoods();
     fetchCuisines();
     listenFocusSelect();
+    listenImageLoads();
 });
+
+/**
+ * Lazy loading of images
+ * https://www.sitepoint.com/five-techniques-lazy-load-images-website-performance/
+ */
+listenImageLoads = () => {
+    [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = function() {
+            img.removeAttribute('data-src');
+        };
+    });
+}
 
 /**
 * Fetch all neighborhoods and set their HTML.
@@ -159,6 +173,7 @@ createRestaurantHTML = (restaurant) => {
     image.className = 'restaurant-img';
     image.setAttribute('alt', restaurant.name || 'restaurant');
     image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
 
     picture.append(source1);
     picture.append(source2);

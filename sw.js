@@ -1,3 +1,5 @@
+let currentCache = 'mws-static-v3';
+
 self.addEventListener('install', event => {
     let urlsToCache = [
         '/',
@@ -10,10 +12,27 @@ self.addEventListener('install', event => {
     ];
 
     event.waitUntil(
-        caches.open('mws-static-v1').then(cache => {
+        caches.open(currentCache).then(cache => {
             return cache.addAll(urlsToCache);
         }).catch(error => {
             console.log(error);
+        })
+    );
+});
+
+/**
+ * Remove old caches here
+ */
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.filter(a => {
+                    return a.startsWith('mws-static') && a != currentCache;
+                }).map(a => {
+                    return caches.delete(a);
+                })
+            )
         })
     );
 });
@@ -41,7 +60,7 @@ self.addEventListener('fetch', event => {
 });
 
 addToCache = (url) => {
-    caches.open('mws-static-v1').then(cache => {
+    caches.open(currentCache).then(cache => {
         cache.add(url);
     }).catch(error => {
         console.log(error);
