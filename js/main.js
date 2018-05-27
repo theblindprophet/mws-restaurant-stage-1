@@ -6,6 +6,7 @@ var markers = []
 * Fetch neighborhoods and cuisines as soon as the page is loaded.
 */
 document.addEventListener('DOMContentLoaded', (event) => {
+    openDatabase();
     fetchNeighborhoods();
     fetchCuisines();
     listenFocusSelect();
@@ -13,9 +14,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 /**
- * Lazy loading of images
- * https://www.sitepoint.com/five-techniques-lazy-load-images-website-performance/
- */
+* Lazy loading of images
+* https://www.sitepoint.com/five-techniques-lazy-load-images-website-performance/
+*/
 listenImageLoads = () => {
     [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
         img.setAttribute('src', img.getAttribute('data-src'));
@@ -226,8 +227,8 @@ listenFocusSelect = () => {
 }
 
 /**
- * Register the service worker inside sw.js
- */
+* Register the service worker inside sw.js
+*/
 registerServiceWorker = () => {
     if(!navigator.serviceWorker) return;
     navigator.serviceWorker.register('/sw.js').then(() => {
@@ -237,3 +238,21 @@ registerServiceWorker = () => {
     });
 }
 registerServiceWorker();
+
+/**
+* Create IDB database
+*/
+openDatabase = () => {
+    // If the browser doesn't support service worker,
+    // we don't care about having a database
+    if (!navigator.serviceWorker) {
+        return Promise.resolve();
+    }
+
+    return idb.open('mws-db-1', 1, function(upgradeDb) {
+        var store = upgradeDb.createObjectStore('restaurants', {
+            keyPath: 'id'
+        });
+        store.createIndex('id', 'id', {unique: true});
+    });
+}
