@@ -5,7 +5,7 @@ var map;
 * Initialize Google map, called from HTML.
 */
 window.initMap = () => {
-    fetchRestaurantFromURL((error, restaurant) => {
+    fetchRestaurantFromURL().then(restaurant => {
         if (error) { // Got an error!
             console.error(error);
         } else {
@@ -23,26 +23,24 @@ window.initMap = () => {
 /**
 * Get current restaurant from page URL.
 */
-fetchRestaurantFromURL = (callback) => {
-    if (self.restaurant) { // restaurant already fetched!
-        callback(null, self.restaurant)
-        return;
-    }
-    const id = getParameterByName('id');
-    if (!id) { // no id found in URL
-        error = 'No restaurant id in URL'
-        callback(error, null);
-    } else {
-        DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-            self.restaurant = restaurant;
-            if (!restaurant) {
-                console.error(error);
-                return;
-            }
-            fillRestaurantHTML();
-            callback(null, restaurant)
-        });
-    }
+fetchRestaurantFromURL = () => {
+    return new Promise((resolve, reject) => {
+        if(self.restaurant) { // restaurant already fetched!
+            return resolve(self.restaurant)
+        }
+        const id = getParameterByName('id');
+        if(!id) { // no id found in URL
+            return reject('No restaurant id in URL');
+        } else {
+            DBHelper.fetchRestaurantById(id).then(restaurant => {
+                self.restaurant = restaurant;
+                fillRestaurantHTML();
+                return resolve(restaurant)
+            }).catch(error => {
+                return reject(error);
+            });
+        }
+    });
 }
 
 /**
