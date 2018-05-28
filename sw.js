@@ -1,4 +1,4 @@
-let currentCache = 'mws-static-v3';
+let currentCache = 'mws-static-v4';
 
 self.addEventListener('install', event => {
     let urlsToCache = [
@@ -7,8 +7,8 @@ self.addEventListener('install', event => {
         '/js/main.js',
         '/js/restaurant_info.js',
         '/js/dbhelper.js',
-        '/css/styles.css',
-        '/data/restaurants.json'
+        '/js/idb.js',
+        '/css/styles.css'
     ];
 
     event.waitUntil(

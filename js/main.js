@@ -6,7 +6,7 @@ var markers = []
 * Fetch neighborhoods and cuisines as soon as the page is loaded.
 */
 document.addEventListener('DOMContentLoaded', (event) => {
-    openDatabase();
+    DBHelper.writeRestautantsToIDB();
     fetchNeighborhoods();
     fetchCuisines();
     listenFocusSelect();
@@ -238,21 +238,3 @@ registerServiceWorker = () => {
     });
 }
 registerServiceWorker();
-
-/**
-* Create IDB database
-*/
-openDatabase = () => {
-    // If the browser doesn't support service worker,
-    // we don't care about having a database
-    if (!navigator.serviceWorker) {
-        return Promise.resolve();
-    }
-
-    return idb.open('mws-db-1', 1, function(upgradeDb) {
-        var store = upgradeDb.createObjectStore('restaurants', {
-            keyPath: 'id'
-        });
-        store.createIndex('id', 'id', {unique: true});
-    });
-}

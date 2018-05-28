@@ -1,3 +1,7 @@
+const idb_name = 'mws-db';
+const idb_version = 1;
+let dbPromise = null;
+
 /**
 * Common database helper functions.
 */
@@ -21,7 +25,16 @@ class DBHelper {
                     return resolve(data);
                 });
             }).catch(error => {
-                return reject(error);
+                // We only want to retrieve from IDB if there is an error (such
+                // as offline error) because the data can change and we do not
+                // want to present old data right before the real data comes in.
+                // Therefore we only present the cached data if we cannot get
+                // the live data
+                DBHelper.fetchRestaurantsFromIDB().then(restaurants => {
+                    return resolve(restaurants);
+                }).catch(error => {
+                    return reject(error);
+                });
             });
         });
     }
@@ -163,4 +176,58 @@ class DBHelper {
         return marker;
     }
 
+    /**
+     * Write new values to database
+     */
+    static writeRestautantsToIDB() {
+        openDatabase().then(db => {
+            DBHelper.fetchRestaurants().then(restaurants => {
+                const tx = db.transaction('restaurants', 'readwrite');
+                let i = 0;
+                putNext();
+                function putNext() {
+                    if(i < restaurants.length) {
+                        tx.objectStore('restaurants').put(restaurants[i]).then(putNext);
+                        ++i;
+                    } else {
+                        console.log("Finished adding restaurants to database");
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Retrieve restaurants from IDB
+     */
+    static fetchRestaurantsFromIDB() {
+        return new Promise((resolve, reject) => {
+            dbPromise.then(db => {
+                db.transaction('restaurants').objectStore('restaurants').getAll().then(restaurants => {
+                    return resolve(restaurants);
+                }).catch(error => {
+                    return reject(error);
+                });
+            });
+        });
+    }
+}
+
+/**
+* Create IDB database
+*/
+openDatabase = () => {
+    // If the browser doesn't support service worker,
+    // we don't care about having a database
+    if (!navigator.serviceWorker) {
+        return Promise.resolve();
+    }
+
+    dbPromise = idb.open(idb_name, idb_version, db => {
+        var store = db.createObjectStore('restaurants', {
+            keyPath: 'id'
+        });
+        store.createIndex('id', 'id', {unique: true});
+    });
+    return dbPromise;
 }
