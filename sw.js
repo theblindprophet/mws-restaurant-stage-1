@@ -1,4 +1,4 @@
-let currentCache = 'mws-static-v5';
+let currentCache = 'mws-static-v6';
 
 self.addEventListener('install', event => {
     let urlsToCache = [
@@ -47,10 +47,22 @@ self.addEventListener('activate', event => {
  * It does, however, take 2 loads of the page before the user will store images
  */
 self.addEventListener('fetch', event => {
-    // Requesting images
+    // Because the cache matches by url, a restaurant.html/?id=# will not match
+    // anything and therefore will fail when fetched offline. Therefore I check
+    // to see if we are requesting that url and then request the base page and
+    // add the query back after the cache has got the page
+    let restaurantUrl = '';
+    let url = event.request.url;
+    if(url.match(/.*?8000\/restaurant\.html\?id\=[0-9]+/g)) {
+        url = 'http://localhost:8000/restaurant.html';
+        restaurantUrl = url;
+    }
     event.respondWith(
-        caches.match(event.request).then(response => {
-            if(response) return response;
+        caches.match(url).then(response => {
+            if(response) {
+                if(restaurantUrl) response.url = restaurantUrl;
+                return response;
+            }
             // Add images to cache for next time
             if(event.request.url.endsWith('.jpg') || event.request.url.endsWith('.html')) {
                 addToCache(event.request.url);
