@@ -164,11 +164,11 @@ createRestaurantHTML = (restaurant) => {
     }
     source1.setAttribute('media', '(max-width: 400px)');
     let photograph_s = restaurant.photograph + '-400-s.jpg';
-    source1.setAttribute('srcset', `/img/${photograph_s}`);
+    source1.setAttribute('data-srcset', `/img/${photograph_s}`);
     source2.setAttribute('media', '(max-width: 600px)');
     let photograph_m = restaurant.photograph + '-600-m.jpg';
-    source2.setAttribute('srcset', `/img/${photograph_m}`);
-    image.className = 'restaurant-img';
+    source2.setAttribute('data-srcset', `/img/${photograph_m}`);
+    image.className = 'restaurant-img lazyload';
     image.setAttribute('alt', restaurant.name || 'restaurant');
     image.src = DBHelper.imageUrlForRestaurant(restaurant);
     image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));

@@ -58,7 +58,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 #footer {
 	background-color: #444;
-	color: #aaa;
+	color: #d8d8d8;
 	font-size: 8pt;
 	letter-spacing: 1px;
 	padding: 25px;
@@ -153,16 +153,12 @@ a.skip-main:focus, a.skip-main:active {
 .filter-options {
 	display: flex;
 	width: 100%;
-	background-color: #3397DB;
+	background-color: #0b72b7;
 	align-items: center;
 }
-.filter-options h2 {
-	color: #fff;
-	font-size: 1rem;
-	font-weight: normal;
-	line-height: 1;
-	margin: 0 20px;
-	text-align: center;
+.filter-options label {
+	margin-left: 20px;
+	color: #ffffff;
 }
 .filter-options select {
 	background-color: white;
@@ -230,9 +226,9 @@ a.skip-main:focus, a.skip-main:active {
 	min-width: 100%;
 }
 #restaurants-list li h1 {
-	color: #f18200;
+	color: #0b72b7;
 	font-family: Arial,sans-serif;
-	font-size: 14pt;
+	font-size: 16pt;
 	font-weight: 200;
 	letter-spacing: 0;
 	line-height: 1.3;
@@ -244,7 +240,7 @@ a.skip-main:focus, a.skip-main:active {
 	font-size: 11pt;
 }
 #restaurants-list li a {
-	background-color: orange;
+	background-color: #0b72b7;
 	border-bottom: 3px solid #eee;
 	color: #fff;
 	display: block;
@@ -290,7 +286,7 @@ a.skip-main:focus, a.skip-main:active {
 
 }
 #restaurant-name {
-	color: #f18200;
+	color: #e58f20;
 	font-family: Arial,sans-serif;
 	font-size: 20pt;
 	font-weight: 200;

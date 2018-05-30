@@ -1,8 +1,9 @@
-let currentCache = 'mws-static-v4';
+let currentCache = 'mws-static-v5';
 
 self.addEventListener('install', event => {
     let urlsToCache = [
         '/',
+        '/manifest.json',
         '/restaurant.html',
         '/js/main.js',
         '/js/restaurant_info.js',

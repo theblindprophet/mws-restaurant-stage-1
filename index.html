@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#3397DB">
+    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
     <link rel="stylesheet" href="css/styles.css">
     <title>Restaurant Reviews</title>
@@ -23,13 +25,14 @@
         </section>
         <section id="mainsection" aria-label="Filter Results">
             <div class="filter-options">
-                <h2>Filter Results</h2>
                 <span>
+                    <label for="neighborhoods-select">Neighborhoods</label>
                     <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
                         <option value="all">All Neighborhoods</option>
                     </select>
                 </span>
                 <span>
+                    <label for="cuisines-select">Cuisines</label>
                     <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
                         <option value="all">All Cuisines</option>
                     </select>
@@ -43,6 +46,7 @@
     <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrfnVJPQfgJSVtpaUeelOdUA-K7A-Qu8U&libraries=places&callback=initMap"></script>
+    <script src="js/lazysizes.min.js" async=""></script>
 
     <footer id="footer">
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
