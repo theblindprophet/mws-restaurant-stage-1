@@ -20,21 +20,32 @@ class DBHelper {
     */
     static fetchRestaurants() {
         return new Promise((resolve, reject) => {
-            fetch(DBHelper.DATABASE_URL).then(response => {
-                response.json().then(data => {
-                    return resolve(data);
-                });
-            }).catch(error => {
-                // We only want to retrieve from IDB if there is an error (such
-                // as offline error) because the data can change and we do not
-                // want to present old data right before the real data comes in.
-                // Therefore we only present the cached data if we cannot get
-                // the live data
-                DBHelper.fetchRestaurantsFromIDB().then(restaurants => {
+            DBHelper.fetchRestaurantsFromIDB().then(restaurants => {
+                if(!restaurants || restaurants.length == 0) {
+                    fetch(DBHelper.DATABASE_URL).then(response => {
+                        response.json().then(data => {
+                            return resolve(data);
+                        });
+                    }).catch(error => {
+                        return reject(error);
+                    });
+                } else {
+                    DBHelper.saveRestaurants();
                     return resolve(restaurants);
-                }).catch(error => {
-                    return reject(error);
-                });
+                }
+            }).catch(error => {
+                return reject(error);
+            });
+        });
+    }
+
+    /**
+    * Fetch and save all restaurants.
+    */
+    static saveRestaurants() {
+        fetch(DBHelper.DATABASE_URL).then(response => {
+            response.json().then(restaurants => {
+                DBHelper.writeRestautantsToIDB(restaurants);
             });
         });
     }
@@ -179,21 +190,19 @@ class DBHelper {
     /**
      * Write new values to database
      */
-    static writeRestautantsToIDB() {
-        openDatabase().then(db => {
-            DBHelper.fetchRestaurants().then(restaurants => {
-                const tx = db.transaction('restaurants', 'readwrite');
-                let i = 0;
-                putNext();
-                function putNext() {
-                    if(i < restaurants.length) {
-                        tx.objectStore('restaurants').put(restaurants[i]).then(putNext);
-                        ++i;
-                    } else {
-                        console.log("Finished adding restaurants to database");
-                    }
+    static writeRestautantsToIDB(restaurants) {
+        DBHelper.openDatabase().then(db => {
+            const tx = db.transaction('restaurants', 'readwrite');
+            let i = 0;
+            putNext();
+            function putNext() {
+                if(i < restaurants.length) {
+                    tx.objectStore('restaurants').put(restaurants[i]).then(putNext);
+                    ++i;
+                } else {
+                    console.log("Finished adding restaurants to database");
                 }
-            });
+            }
         });
     }
 
@@ -211,23 +220,23 @@ class DBHelper {
             });
         });
     }
-}
 
-/**
-* Create IDB database
-*/
-openDatabase = () => {
-    // If the browser doesn't support service worker,
-    // we don't care about having a database
-    if (!navigator.serviceWorker) {
-        return Promise.resolve();
-    }
+    /**
+    * Create IDB database
+    */
+    static openDatabase() {
+        // If the browser doesn't support service worker,
+        // we don't care about having a database
+        if (!navigator.serviceWorker) {
+            return Promise.resolve();
+        }
 
-    dbPromise = idb.open(idb_name, idb_version, db => {
-        var store = db.createObjectStore('restaurants', {
-            keyPath: 'id'
+        dbPromise = idb.open(idb_name, idb_version, db => {
+            var store = db.createObjectStore('restaurants', {
+                keyPath: 'id'
+            });
+            store.createIndex('id', 'id', {unique: true});
         });
-        store.createIndex('id', 'id', {unique: true});
-    });
-    return dbPromise;
+        return dbPromise;
+    }
 }

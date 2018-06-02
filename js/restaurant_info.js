@@ -2,7 +2,7 @@ let restaurant;
 var map;
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    DBHelper.writeRestautantsToIDB();
+    DBHelper.openDatabase();
 });
 
 /**
