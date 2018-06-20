@@ -30,11 +30,12 @@ class DBHelper {
                         return reject(error);
                     });
                 } else {
-                    DBHelper.saveRestaurants();
                     return resolve(restaurants);
                 }
             }).catch(error => {
                 return reject(error);
+            }).finally(() => {
+                DBHelper.saveRestaurants();
             });
         });
     }

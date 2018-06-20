@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var minifyCSS = require('gulp-csso');
 var uglify = require('gulp-uglifyes');
 var concat = require('gulp-concat');
+var rename = require("gulp-rename");
 var del = require('del');
 
 gulp.task('html', function(){
@@ -21,15 +22,18 @@ gulp.task('img', function(){
 });
 
 gulp.task('js-main', function(){
-  return gulp.src(['js/*.js', '!js/restaurant_info.js'])
-    .pipe(concat('app.main.min.js'))
+  return gulp.src(['js/dbhelper.js', 'js/idb.js', 'js/lazysizes.min.js'])
+    .pipe(concat('all.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
 });
 
-gulp.task('js-restaurant', function(){
-  return gulp.src(['js/*.js', '!js/main.js'])
-    .pipe(concat('app.restaurant.min.js'))
+gulp.task('js-files', function(){
+  return gulp.src(['js/*.js', '!js/dbhelper.js', '!js/idb.js', '!js/lazysizes.min.js'])
+    .pipe(rename(function (path) {
+        path.dirname = '';
+        path.extname = ".min.js";
+    }))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
 });
@@ -54,4 +58,4 @@ gulp.task('clean', function(){
     return del('dist/**', {force:true});
 });
 
-gulp.task('default', ['html', 'css', 'img', 'js-main', 'js-restaurant', 'js-sw', 'other', 'other2']);
+gulp.task('default', ['html', 'css', 'img', 'js-main', 'js-files', 'js-sw', 'other', 'other2']);
