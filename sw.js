@@ -5,12 +5,11 @@ self.addEventListener('install', event => {
         '/',
         '/manifest.json',
         '/restaurant.html',
-        '/new-restaurant.html',
-        '/js/main.js',
-        '/js/restaurant_info.js',
-        '/js/restaurant_form.js',
-        '/js/dbhelper.js',
-        '/js/idb.js',
+        '/restaurant-form.html',
+        '/js/all.min.js',
+        '/js/main.min.js',
+        '/js/restaurant-info.min.js',
+        '/js/restaurant-form.min.js',
         '/css/styles.css'
     ];
 
