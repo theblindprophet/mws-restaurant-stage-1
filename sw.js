@@ -1,4 +1,4 @@
-let currentCache = 'mws-static-v6';
+let currentCache = 'mws-static-v5';
 
 self.addEventListener('install', event => {
     let urlsToCache = [

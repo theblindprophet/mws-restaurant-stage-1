@@ -9,9 +9,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
     DBHelper.openDatabase();
     fetchNeighborhoods();
     fetchCuisines();
+    listenTabClick();
     listenFocusSelect();
     listenImageLoads();
 });
+
+/**
+ * Listen for the click of the list or map button
+ * Loading a map on the first load is extremely taxing on performace
+ */
+listenTabClick = () => {
+    document.querySelector('#list-button').addEventListener('click', (e) => {
+        if(!e.srcElement.classList.contains('active')) {
+            document.querySelector('#list-button').classList.add('active');
+            document.querySelector('#map-button').classList.remove('active');
+            document.querySelector('#mainsection').classList.add('active');
+            document.querySelector('#map-container').classList.remove('active');
+        }
+    });
+    document.querySelector('#map-button').addEventListener('click', (e) => {
+        if(!e.srcElement.classList.contains('active')) {
+            document.querySelector('#list-button').classList.remove('active');
+            document.querySelector('#map-button').classList.add('active');
+            document.querySelector('#mainsection').classList.remove('active');
+            document.querySelector('#map-container').classList.add('active');
+        }
+    });
+}
 
 /**
 * Lazy loading of images
@@ -142,6 +166,7 @@ resetRestaurants = (restaurants) => {
 */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
     const ul = document.getElementById('restaurants-list');
+    ul.innerHTML = '';
     restaurants.forEach(restaurant => {
         ul.append(createRestaurantHTML(restaurant));
     });
@@ -170,7 +195,6 @@ createRestaurantHTML = (restaurant) => {
     source2.setAttribute('data-srcset', `/img/${photograph_m}`);
     image.className = 'restaurant-img lazyload';
     image.setAttribute('alt', restaurant.name || 'restaurant');
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
     image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
 
     picture.append(source1);
@@ -194,9 +218,9 @@ createRestaurantHTML = (restaurant) => {
     const more = document.createElement('a');
     more.innerHTML = 'View Details';
     more.href = DBHelper.urlForRestaurant(restaurant);
-    li.append(more)
+    li.append(more);
 
-    return li
+    return li;
 }
 
 /**

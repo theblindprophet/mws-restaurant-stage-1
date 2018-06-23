@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#3397DB">
     <link rel="manifest" href="/manifest.json">
 
-    <style media="screen">
+    <style media="screen" async defer>
     .inside header {
     	position: fixed;
     	top: 0;
@@ -125,23 +125,9 @@
     		height: 300px;
     	}
     }
-    @media only screen and (max-width: 440px) {
-    	.filter-options {
-    		flex-wrap: wrap;
-    		justify-content: center;
-    	}
-    	.filter-options h2 {
-    		width: 100%;
-    		margin: 12px 20px 0;
-    	}
-    	#restaurants-list li {
-    		width: 100%;
-    	}
-    }
+    
     </style>
 
-    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-    <link rel="stylesheet" href="css/styles.css">
     <title>Restaurant Info</title>
 </head>
 
@@ -198,6 +184,9 @@
         Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
     <!-- End footer -->
+
+    <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
+    <link async rel="stylesheet" href="css/styles.css" media="screen">
 
     <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/restaurant-info.min.js"></script>

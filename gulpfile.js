@@ -4,9 +4,15 @@ var uglify = require('gulp-uglifyes');
 var concat = require('gulp-concat');
 var rename = require("gulp-rename");
 var del = require('del');
+var htmlmin = require('gulp-htmlmin');
 
 gulp.task('html', function(){
     return gulp.src('./*.html')
+      .pipe(htmlmin({
+        collapseWhitespace: true,
+        minifyCSS: true,
+        removeComments: true
+      }))
       .pipe(gulp.dest('dist/'))
 });
 

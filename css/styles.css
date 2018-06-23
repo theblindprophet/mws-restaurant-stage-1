@@ -143,9 +143,3 @@ a.skip-main:focus, a.skip-main:active {
 	font-size: 1.2em;
 	z-index: 999;
 }
-/* ====================== Map ====================== */
-#map {
-	height: 400px;
-	width: 100%;
-	background-color: #ccc;
-}
