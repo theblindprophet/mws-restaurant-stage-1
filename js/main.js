@@ -7,6 +7,7 @@ var markers = []
 */
 document.addEventListener('DOMContentLoaded', (event) => {
     DBHelper.openDatabase();
+    updateRestaurants();
     fetchNeighborhoods();
     fetchCuisines();
     listenTabClick();
@@ -122,7 +123,6 @@ window.initMap = () => {
             });
         }, 600);
     });
-    updateRestaurants();
 }
 
 /**
@@ -135,8 +135,8 @@ updateRestaurants = () => {
     const cIndex = cSelect.selectedIndex;
     const nIndex = nSelect.selectedIndex;
 
-    const cuisine = cSelect[cIndex].value;
-    const neighborhood = nSelect[nIndex].value;
+    const cuisine = cSelect[cIndex].value || 'all';
+    const neighborhood = nSelect[nIndex].value || 'all';
 
     DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood).then(restaurants => {
         resetRestaurants(restaurants);

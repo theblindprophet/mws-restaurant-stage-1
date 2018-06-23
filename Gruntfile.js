@@ -17,17 +17,17 @@ module.exports = function(grunt) {
                         {
                             width: 400,
                             suffix: "-s",
-                            quality: 15
+                            quality: 8
                         },
                         {
                             width: 600,
                             suffix: "-m",
-                            quality: 15
+                            quality: 10
                         },
                         {
                             width: 800,
                             suffix: "-l",
-                            quality: 15
+                            quality: 12
                         }
                     ]
                 },
