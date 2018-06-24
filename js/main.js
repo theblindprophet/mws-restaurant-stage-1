@@ -123,6 +123,9 @@ window.initMap = () => {
             });
         }, 600);
     });
+    if (self.restaurants) {
+        addMarkersToMap();
+    }
 }
 
 /**
@@ -170,7 +173,9 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     restaurants.forEach(restaurant => {
         ul.append(createRestaurantHTML(restaurant));
     });
-    addMarkersToMap();
+    if (window.google) {
+        addMarkersToMap();
+    }
 }
 
 /**
