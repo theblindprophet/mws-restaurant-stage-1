@@ -47,8 +47,6 @@ class DBHelper {
               return reject(error);
           });
         } else {
-      console.log(reviews);
-
           return resolve(reviews);
         }
       }).catch(error => {
@@ -253,8 +251,8 @@ class DBHelper {
   static fetchReviewsFromIDB(restaurant_id) {
     return new Promise((resolve, reject) => {
       dbPromise.then(db => {
-        db.transaction('reviews').objectStore('reviews').getAll().then(reviews => {
-          return resolve(reviews.filter(r => r.restaurant_id == restaurant_id));
+        db.transaction('reviews').objectStore('reviews').index('restaurant_id').getAll(parseInt(restaurant_id)).then(reviews => {
+          return resolve(reviews);
         }).catch(error => {
           return reject(error);
         });

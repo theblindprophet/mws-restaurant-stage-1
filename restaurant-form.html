@@ -7,7 +7,54 @@
     <link rel="manifest" href="/manifest.json">
 
     <style media="screen" async defer>
-
+    #maincontent {
+      padding: 24px;
+    }
+    #new-restaurant-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #new-restaurant-form > * {
+      width: 80%;
+      min-width: 240px;
+      max-width: 600px;
+      margin: 0 12px;
+      padding: 2px;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+    }
+    #new-restaurant-form > h2 {
+      text-align: left;
+      color: #0275d8;
+      margin-bottom: 16px;
+    }
+    #new-restaurant-form > label {
+      text-align: left;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      color: #0275d8;
+      font-size: 16px;
+    }
+    #new-restaurant-form > *:not(label):focus {
+      border: 2px solid #0275d8;
+    }
+    #new-restaurant-form > input, #new-restaurant-form > select {
+      height: 35px;
+      font-size: 14px;
+    }
+    #new-restaurant-form > #comments {
+      max-height: 240px;
+    }
+    #new-restaurant-form > #submit {
+      margin-top: 16px;
+      background: #0275d8;
+      color: #fff;
+    }
+    #new-restaurant-form > #submit:focus {
+      border: 2px solid #ffffff;
+    }
     </style>
 
     <title>Restaurant Info</title>
@@ -16,31 +63,44 @@
 <body class="inside">
     <!-- Beginning header -->
     <header>
-        <!-- Beginning nav -->
-        <nav>
-            <h1><a href="/">Restaurant Reviews</a></h1>
-        </nav>
-        <!-- Beginning breadcrumb -->
-        <ul id="breadcrumb" >
-            <li><a href="/">Home</a></li>
-            <li><a href="/restaurant-form.html">New Restaurant</a></li>
-        </ul>
-        <!-- End breadcrumb -->
-        <!-- End nav -->
+      <!-- Beginning nav -->
+      <nav>
+        <h1><a href="/">Restaurant Reviews</a></h1>
+      </nav>
+      <!-- Beginning breadcrumb -->
+      <ul id="breadcrumb" >
+        <li><a href="/">Home</a></li>
+        <li><a href="/restaurant-form.html">New Review</a></li>
+      </ul>
+      <!-- End breadcrumb -->
+      <!-- End nav -->
     </header>
     <!-- End header -->
 
     <!-- Beginning main -->
     <main id="maincontent">
-        <form action="" class="new-restaurant-form">
-            
-        </form>
+      <form id="new-restaurant-form">
+        <h2>New Review</h2>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+        <label for="rating">Rating</label>
+        <select name="rating" id="rating" required>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+        <label for="comments">Comments</label>
+        <textarea name="comments" id="comments" cols="30" rows="10" required></textarea>
+        <input type="submit" id="submit" value="Submit">
+      </form>
     </main>
     <!-- End main -->
 
     <!-- Beginning footer -->
     <footer id="footer">
-        Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+      Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
     </footer>
     <!-- End footer -->
 
