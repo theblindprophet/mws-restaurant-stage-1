@@ -1,25 +1,25 @@
-let currentCache = 'mws-static-v7';
+let currentCache = 'mws-static-v5';
 
 self.addEventListener('install', event => {
-    let urlsToCache = [
-        '/',
-        '/manifest.json',
-        '/restaurant.html',
-        '/restaurant-form.html',
-        '/js/all.min.js',
-        '/js/main.min.js',
-        '/js/restaurant-info.min.js',
-        '/js/restaurant-form.min.js',
-        '/css/styles.css'
-    ];
+  let urlsToCache = [
+    '/',
+    '/manifest.json',
+    '/restaurant.html',
+    '/restaurant-form.html',
+    '/js/all.min.js',
+    '/js/main.min.js',
+    '/js/restaurant-info.min.js',
+    '/js/restaurant-form.min.js',
+    '/css/styles.css'
+  ];
 
-    event.waitUntil(
-        caches.open(currentCache).then(cache => {
-            return cache.addAll(urlsToCache);
-        }).catch(error => {
-            console.log(error);
-        })
-    );
+  event.waitUntil(
+    caches.open(currentCache).then(cache => {
+      return cache.addAll(urlsToCache);
+    }).catch(error => {
+      console.log(error);
+    })
+  );
 });
 
 /**

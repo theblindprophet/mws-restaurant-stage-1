@@ -45,7 +45,15 @@
     <!-- End footer -->
 
     <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
-    <link async rel="stylesheet" href="css/styles.css" media="screen">
+    
+    <script type="text/javascript">
+        var css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'css/styles.css';
+        css.type = 'text/css';
+        var godefer = document.getElementsByTagName('link')[0];
+        godefer.parentNode.insertBefore(css, godefer);
+    </script>
 
     <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
     <script type="application/javascript" charset="utf-8" src="js/restaurant-form.min.js"></script>

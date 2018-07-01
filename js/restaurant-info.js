@@ -2,47 +2,49 @@ let restaurant;
 var map;
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    DBHelper.openDatabase();
+  DBHelper.openDatabase();
+  listenForNewReview();
+  fetchReviewsForRestaurant();
 });
 
 /**
 * Initialize Google map, called from HTML.
 */
 window.initMap = () => {
-    fetchRestaurantFromURL().then(restaurant => {
-        self.map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: restaurant.latlng,
-            scrollwheel: false
-        });
-        fillBreadcrumb();
-        DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
-    }).catch(error => {
-        console.error(error);
+  fetchRestaurantFromURL().then(restaurant => {
+    self.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: restaurant.latlng,
+      scrollwheel: false
     });
+    fillBreadcrumb();
+    DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+  }).catch(error => {
+      console.error(error);
+  });
 }
 
 /**
 * Get current restaurant from page URL.
 */
 fetchRestaurantFromURL = () => {
-    return new Promise((resolve, reject) => {
-        if(self.restaurant) { // restaurant already fetched!
-            return resolve(self.restaurant)
-        }
-        const id = getParameterByName('id');
-        if(!id) { // no id found in URL
-            return reject('No restaurant id in URL');
-        } else {
-            DBHelper.fetchRestaurantById(id).then(restaurant => {
-                self.restaurant = restaurant;
-                fillRestaurantHTML();
-                return resolve(restaurant)
-            }).catch(error => {
-                return reject(error);
-            });
-        }
-    });
+  return new Promise((resolve, reject) => {
+    if(self.restaurant) { // restaurant already fetched!
+      return resolve(self.restaurant)
+    }
+    const id = getParameterByName('id');
+    if(!id) { // no id found in URL
+      return reject('No restaurant id in URL');
+    } else {
+      DBHelper.fetchRestaurantById(id).then(restaurant => {
+        self.restaurant = restaurant;
+        fillRestaurantHTML();
+        return resolve(restaurant)
+      }).catch(error => {
+        return reject(error);
+      });
+    }
+  });
 }
 
 /**
@@ -64,52 +66,51 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
     // fill operating hours
     if (restaurant.operating_hours) {
-        fillRestaurantHoursHTML();
+      fillRestaurantHoursHTML();
     }
-    // fill reviews
-    fillReviewsHTML();
 }
 
 /**
 * Create restaurant operating hours HTML table and add it to the webpage.
 */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
-    const hours = document.getElementById('restaurant-hours');
-    for (let key in operatingHours) {
-        const row = document.createElement('tr');
+  const hours = document.getElementById('restaurant-hours');
+  for (let key in operatingHours) {
+    const row = document.createElement('tr');
 
-        const day = document.createElement('td');
-        day.innerHTML = key;
-        row.appendChild(day);
+    const day = document.createElement('td');
+    day.innerHTML = key;
+    row.appendChild(day);
 
-        const time = document.createElement('td');
-        time.innerHTML = operatingHours[key];
-        row.appendChild(time);
+    const time = document.createElement('td');
+    time.innerHTML = operatingHours[key];
+    row.appendChild(time);
 
-        hours.appendChild(row);
-    }
+    hours.appendChild(row);
+  }
 }
 
 /**
 * Create all reviews HTML and add them to the webpage.
 */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-    const container = document.getElementById('reviews-container');
-    const title = document.createElement('h2');
-    title.innerHTML = 'Reviews';
-    container.appendChild(title);
+  const container = document.getElementById('reviews-container');
+  const title = document.createElement('h2');
+  title.innerHTML = 'Reviews';
+  container.prepend(title, container.firstChild);
 
-    if (!reviews) {
-        const noReviews = document.createElement('p');
-        noReviews.innerHTML = 'No reviews yet!';
-        container.appendChild(noReviews);
-        return;
-    }
-    const ul = document.getElementById('reviews-list');
-    reviews.forEach(review => {
-        ul.appendChild(createReviewHTML(review));
-    });
-    container.appendChild(ul);
+  if (!reviews) {
+    const noReviews = document.createElement('p');
+    noReviews.style.textAlign = 'center';
+    noReviews.innerHTML = 'No reviews yet!';
+    container.appendChild(noReviews);
+    return;
+  }
+  const ul = document.getElementById('reviews-list');
+  reviews.forEach(review => {
+    ul.appendChild(createReviewHTML(review));
+  });
+  container.appendChild(ul);
 }
 
 /**
@@ -122,7 +123,8 @@ createReviewHTML = (review) => {
     li.appendChild(name);
 
     const date = document.createElement('p');
-    date.innerHTML = review.date;
+    const dataObj = new Date(review.updatedAt)
+    date.innerHTML = dataObj.toISOString().substr(0, 10);
     li.appendChild(date);
 
     const rating = document.createElement('p');
@@ -134,6 +136,18 @@ createReviewHTML = (review) => {
     li.appendChild(comments);
 
     return li;
+}
+
+fetchReviewsForRestaurant = () => {
+  const id = getParameterByName('id');
+  if(id) {
+    DBHelper.fetchReviews(id).then(reviews => {
+      // fill reviews
+      fillReviewsHTML(reviews);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 }
 
 /**
@@ -160,4 +174,13 @@ getParameterByName = (name, url) => {
     if (!results[2])
     return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+listenForNewReview = () => {
+  document.querySelector('#add-review').addEventListener('click', () => {
+    const id = getParameterByName('id');
+    if (id) {
+      window.location.href = `/restaurant-form.html?id=${id}`;
+    }
+  });
 }
