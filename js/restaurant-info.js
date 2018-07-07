@@ -17,6 +17,9 @@ window.initMap = () => {
       center: restaurant.latlng,
       scrollwheel: false
     });
+    google.maps.event.addListenerOnce(self.map, 'idle', function(){
+      document.querySelector('#map-container iframe').setAttribute('title', 'map');
+    });
     fillBreadcrumb();
     DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
   }).catch(error => {
@@ -51,23 +54,23 @@ fetchRestaurantFromURL = () => {
 * Create restaurant HTML and add it to the webpage
 */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
-    const name = document.getElementById('restaurant-name');
-    name.innerHTML = restaurant.name;
+  const name = document.getElementById('restaurant-name');
+  name.innerHTML = restaurant.name;
 
-    const address = document.getElementById('restaurant-address');
-    address.innerHTML = restaurant.address;
+  const address = document.getElementById('restaurant-address');
+  address.innerHTML = restaurant.address;
 
-    const image = document.getElementById('restaurant-img');
-    image.className = 'restaurant-img'
-    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  const image = document.getElementById('restaurant-img');
+  image.className = 'restaurant-img'
+  image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
-    const cuisine = document.getElementById('restaurant-cuisine');
-    cuisine.innerHTML = restaurant.cuisine_type;
+  const cuisine = document.getElementById('restaurant-cuisine');
+  cuisine.innerHTML = restaurant.cuisine_type;
 
-    // fill operating hours
-    if (restaurant.operating_hours) {
-      fillRestaurantHoursHTML();
-    }
+  // fill operating hours
+  if (restaurant.operating_hours) {
+    fillRestaurantHoursHTML();
+  }
 }
 
 /**
@@ -184,3 +187,16 @@ listenForNewReview = () => {
     }
   });
 }
+
+/**
+* Register the service worker inside sw.js
+*/
+registerServiceWorker = () => {
+  if(!navigator.serviceWorker) return;
+  navigator.serviceWorker.register('/sw.js').then(() => {
+      console.log('Registration worked!');
+  }).catch(error => {
+      console.log('Registration failed!', error);
+  });
+}
+registerServiceWorker();

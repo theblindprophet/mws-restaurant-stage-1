@@ -16,7 +16,14 @@ listenFormSubmit = () => {
       for(let value of valuesArray) {
         values[value[0]] = value[1];
       }
-      // TODO: Submit values to API, detect failues, save response to session
+      values['id'] = id;
+      DBHelper.submitReview(values).then(() => {
+        alert('Review submitted successfully');
+        window.location.href = '/';
+      }).catch(() => {
+        alert('Error saving your review. If your internet is disconnected we will try to submit it again when it reconnects.');
+        sessionStorage.setItem('submitReview', JSON.stringify(values));
+      });
     }
   });
 }
@@ -36,3 +43,16 @@ getParameterByName = (name, url) => {
   return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+* Register the service worker inside sw.js
+*/
+registerServiceWorker = () => {
+  if(!navigator.serviceWorker) return;
+  navigator.serviceWorker.register('/sw.js').then(() => {
+      console.log('Registration worked!');
+  }).catch(error => {
+      console.log('Registration failed!', error);
+  });
+}
+registerServiceWorker();
