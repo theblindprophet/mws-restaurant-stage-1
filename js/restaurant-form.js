@@ -23,6 +23,7 @@ listenFormSubmit = () => {
       }).catch(() => {
         alert('Error saving your review. If your internet is disconnected we will try to submit it again when it reconnects.');
         sessionStorage.setItem('submitReview', JSON.stringify(values));
+        window.location.href = '/';
       });
     }
   });

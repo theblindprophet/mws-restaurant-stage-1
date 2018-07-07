@@ -26,17 +26,17 @@ self.addEventListener('install', event => {
  * Remove old caches here
  */
 self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.filter(a => {
-                    return a.startsWith('mws-static') && a != currentCache;
-                }).map(a => {
-                    return caches.delete(a);
-                })
-            )
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.filter(a => {
+          return a.startsWith('mws-static') && a != currentCache;
+        }).map(a => {
+          return caches.delete(a);
         })
-    );
+      )
+    })
+  );
 });
 
 /**
@@ -55,8 +55,11 @@ self.addEventListener('fetch', event => {
     let restaurantUrl = '';
     let url = event.request.url;
     if(url.match(/.*?8000\/restaurant\.html\?id\=[0-9]+/g)) {
-        url = 'http://localhost:8000/restaurant.html';
-        restaurantUrl = url;
+      url = 'http://localhost:8000/restaurant.html';
+      restaurantUrl = url;
+    } else if (url.match(/.*?8000\/restaurant\-form\.html\?id\=[0-9]+/g)) {
+      url = 'http://localhost:8000/restaurant-form.html';
+      restaurantUrl = url;
     }
     event.respondWith(
         caches.match(url).then(response => {
