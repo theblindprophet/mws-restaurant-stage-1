@@ -190,6 +190,21 @@ class DBHelper {
   }
 
   /**
+   * Favorite a restaurant
+   */
+  static favoriteRestaurant(id, favorite) {
+    return new Promise((resolve, reject) => {
+      fetch(`http://localhost:1337/restaurants/${id}/?is_favorite=${favorite}`, {
+        method: 'PUT'
+      }).then(response => {
+        return resolve(response);
+      }).catch(error => {
+        return reject(error);
+      });
+    });
+  }
+
+  /**
   * Restaurant page URL.
   */
   static urlForRestaurant(restaurant) {

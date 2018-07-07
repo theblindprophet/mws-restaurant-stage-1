@@ -7,6 +7,18 @@
     <link rel="manifest" href="/manifest.json">
 
     <style media="screen" async defer>
+    header {
+      height: 130px;
+    }
+    header nav {
+      display: block;
+    }
+    header nav h1 {
+      padding: 12px;
+    }
+    header nav #breadcrumb {
+      height: 70px;
+    }
     #maincontent {
       padding: 24px;
     }
@@ -14,6 +26,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 12px;
     }
     #new-restaurant-form > * {
       width: 80%;
@@ -61,62 +74,62 @@
 </head>
 
 <body class="inside">
-    <!-- Beginning header -->
-    <header>
-      <!-- Beginning nav -->
-      <nav>
-        <h1><a href="/">Restaurant Reviews</a></h1>
-      </nav>
+  <!-- Beginning header -->
+  <header>
+    <!-- Beginning nav -->
+    <nav>
+      <h1><a href="/">Restaurant Reviews</a></h1>
       <!-- Beginning breadcrumb -->
-      <ul id="breadcrumb" >
+      <ol id="breadcrumb" >
         <li><a href="/">Home</a></li>
         <li><a href="/restaurant-form.html">New Review</a></li>
-      </ul>
+      </ol>
       <!-- End breadcrumb -->
-      <!-- End nav -->
-    </header>
-    <!-- End header -->
+    </nav>
+    <!-- End nav -->
+  </header>
+  <!-- End header -->
 
-    <!-- Beginning main -->
-    <main id="maincontent">
-      <form id="new-restaurant-form">
-        <h2>New Review</h2>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required>
-        <label for="rating">Rating</label>
-        <select name="rating" id="rating" required>
-          <option value="5">5</option>
-          <option value="4">4</option>
-          <option value="3">3</option>
-          <option value="2">2</option>
-          <option value="1">1</option>
-        </select>
-        <label for="comments">Comments</label>
-        <textarea name="comments" id="comments" cols="30" rows="10" required></textarea>
-        <input type="submit" id="submit" value="Submit">
-      </form>
-    </main>
-    <!-- End main -->
+  <!-- Beginning main -->
+  <main id="maincontent">
+    <form id="new-restaurant-form">
+      <h2>New Review</h2>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required>
+      <label for="rating">Rating</label>
+      <select name="rating" id="rating" required>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+      <label for="comments">Comments</label>
+      <textarea name="comments" id="comments" cols="30" rows="10" required></textarea>
+      <input type="submit" id="submit" value="Submit">
+    </form>
+  </main>
+  <!-- End main -->
 
-    <!-- Beginning footer -->
-    <footer id="footer">
-      Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-    </footer>
-    <!-- End footer -->
+  <!-- Beginning footer -->
+  <footer id="footer">
+    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+  <!-- End footer -->
 
-    <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
-    
-    <script type="text/javascript">
-        var css = document.createElement('link');
-        css.rel = 'stylesheet';
-        css.href = 'css/styles.css';
-        css.type = 'text/css';
-        var godefer = document.getElementsByTagName('link')[0];
-        godefer.parentNode.insertBefore(css, godefer);
-    </script>
+  <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
+  
+  <script type="text/javascript">
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'css/styles.css';
+      css.type = 'text/css';
+      var godefer = document.getElementsByTagName('link')[0];
+      godefer.parentNode.insertBefore(css, godefer);
+  </script>
 
-    <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/restaurant-form.min.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/restaurant-form.min.js"></script>
 
 </body>
 

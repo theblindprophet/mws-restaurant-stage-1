@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   DBHelper.openDatabase();
   listenForNewReview();
   fetchReviewsForRestaurant();
+  favoriteRestaurant();
 });
 
 /**
@@ -41,6 +42,7 @@ fetchRestaurantFromURL = () => {
     } else {
       DBHelper.fetchRestaurantById(id).then(restaurant => {
         self.restaurant = restaurant;
+        document.querySelector('#favorite-restaurant input').checked = self.restaurant.is_favorite;
         fillRestaurantHTML();
         return resolve(restaurant)
       }).catch(error => {
@@ -63,6 +65,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('alt', restaurant.name || 'restaurant');
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -161,6 +164,12 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
     const li = document.createElement('li');
     li.innerHTML = restaurant.name;
     breadcrumb.appendChild(li);
+}
+
+favoriteRestaurant = () => {
+  document.querySelector('#favorite-restaurant input').addEventListener('change', (e) => {
+    DBHelper.favoriteRestaurant(self.restaurant.id, e.srcElement.checked);
+  });
 }
 
 /**

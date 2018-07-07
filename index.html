@@ -115,7 +115,7 @@
     min-height: 248px;
     min-width: 100%;
   }
-  #restaurants-list li h1 {
+  #restaurants-list li h3 {
     color: #0b72b7;
     font-family: Arial,sans-serif;
     font-size: 16pt;
@@ -180,13 +180,13 @@
         <div class="filter-options">
             <span>
                 <label for="neighborhoods-select">Neighborhoods</label>
-                <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+                <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="select neighborhood">
                     <option value="all">All Neighborhoods</option>
                 </select>
             </span>
             <span>
                 <label for="cuisines-select">Cuisines</label>
-                <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+                <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="select cuisine">
                     <option value="all">All Cuisines</option>
                 </select>
             </span>
@@ -198,7 +198,7 @@
                     <source media="(max-width: 600px)" srcset="/img/restaurant_placeholder-600-m.jpg">
                     <img class="restaurant-img" src="/img/restaurant_placeholder-800-l.jpg" alt="">
                 </picture>
-                <h1>Loading...</h1>
+                <h3>Loading...</h3>
                 <p>Name</p>
                 <p>Address</p>
             </li>
@@ -208,7 +208,7 @@
                     <source media="(max-width: 600px)" srcset="/img/restaurant_placeholder-600-m.jpg">
                     <img class="restaurant-img" src="/img/restaurant_placeholder-800-l.jpg" alt="">
                 </picture>
-                <h1>Loading...</h1>
+                <h3>Loading...</h3>
                 <p>Name</p>
                 <p>Address</p>
             </li>

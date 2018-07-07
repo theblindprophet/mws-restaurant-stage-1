@@ -2,217 +2,289 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#3397DB">
-    <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#3397DB">
+  <link rel="manifest" href="/manifest.json">
 
-    <style media="screen" async defer>
-    .inside header {
-    	position: fixed;
-    	top: 0;
-    	width: 100%;
-    	z-index: 1000;
-    }
-    .inside #maincontent {
-    	display: flex;
-    	flex-wrap: wrap;
-    	height: calc(100vh - 130px);
-    	padding-top: 130px;
-    }
-    .inside .left-side {
-    	width: 400px;
-    	overflow-y: scroll;
-    }
-    .inside .right-side {
-    	flex-grow: 1;
-    }
-    .inside #map-container {
-    	height: 100%;
-    	width: 100%;
-    	background: blue none repeat scroll 0 0;
-    }
-    .inside #map {
-    	background-color: #ccc;
-    	height: 100%;
-    	width: 100%;
-    }
-    #restaurant-name {
-    	color: #0b72b7;
-    	font-family: Arial,sans-serif;
-    	font-size: 20pt;
-    	font-weight: 200;
-    	letter-spacing: 0;
-    	margin: 15px 0;
-    	text-transform: uppercase;
-    	line-height: 1.1;
-    	text-align: center;
-    }
-    #restaurant-img {
-    	width: 100%;
-    }
-    #restaurant-address {
-    	font-size: 12pt;
-    	margin: 10px 12px;
-    }
-    #restaurant-cuisine {
-    	background-color: #333;
-    	color: #ddd;
-    	font-size: 14pt;
-    	font-weight: 300;
-    	letter-spacing: 10px;
-    	margin: -7px 0 20px;
-    	padding: 2px 0;
-    	text-align: center;
-    	text-transform: uppercase;
-    	width: 100%;
-    }
-    #restaurant-container, #reviews-container {
-    	border-bottom: 1px solid #d9d9d9;
-    }
-    #reviews-container {
+  <style media="screen" async defer>
+  header nav {
+    display: block;
+  }
+  header nav h1 {
       padding: 12px;
     }
-    #reviews-container h2 {
-    	margin: 12px 12px 0;
-    	color: #0b72b7;
-    	font-size: 24pt;
-    	font-weight: 300;
-    	letter-spacing: -1px;
-    	padding-bottom: 1pt;
-    	text-align: center;
-    }
-    #reviews-list {
-    	width: 100%;
-    	margin: 0;
-    	padding: 0;
-    }
-    #reviews-list li {
-    	margin: 20px;
-    	padding: 12px;
-    	background-color: #fff;
-    	display: block;
-    	list-style-type: none;
-    	overflow: hidden;
-    	position: relative;
-    }
-    #reviews-list li p {
-    	margin: 0 0 10px;
-    }
-    #restaurant-hours {
-    	margin: 0 12px 20px;
-    }
-    #restaurant-hours td {
-    	color: #666;
-    }
-    #add-review-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 12px;
-    }
-    #add-review {
-      height: 40px;
-      background: #0b72b7;
-      color: #fff;
-      font-size: 16px;
-      border: none;
-      outline: none;
-      padding: 12px 24px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+  header nav #breadcrumb {
+    height: 70px;
+  }
+  .inside header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  .inside #maincontent {
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100vh - 130px);
+    padding-top: 130px;
+  }
+  .inside .left-side {
+    width: 400px;
+    overflow-y: scroll;
+  }
+  .inside .right-side {
+    flex-grow: 1;
+  }
+  .inside #map-container {
+    height: 100%;
+    width: 100%;
+    background: blue none repeat scroll 0 0;
+  }
+  .inside #map {
+    background-color: #ccc;
+    height: 100%;
+    width: 100%;
+  }
+  #restaurant-name {
+    color: #0b72b7;
+    font-family: Arial,sans-serif;
+    font-size: 20pt;
+    font-weight: 200;
+    letter-spacing: 0;
+    margin: 15px 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: center;
+  }
+  #restaurant-img {
+    width: 100%;
+  }
+  #restaurant-address {
+    font-size: 12pt;
+    margin: 10px 12px;
+  }
+  #restaurant-cuisine {
+    background-color: #333;
+    color: #ddd;
+    font-size: 14pt;
+    font-weight: 300;
+    letter-spacing: 10px;
+    margin: -7px 0 20px;
+    padding: 2px 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+  #favorite-restaurant {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  #favorite-restaurant label {
+    margin-left: auto;
+  }
+  #restaurant-container, #reviews-container {
+    border-bottom: 1px solid #d9d9d9;
+  }
+  #reviews-container {
+    padding: 12px;
+  }
+  #reviews-container h2 {
+    margin: 12px 12px 0;
+    color: #0b72b7;
+    font-size: 24pt;
+    font-weight: 300;
+    letter-spacing: -1px;
+    padding-bottom: 1pt;
+    text-align: center;
+  }
+  #reviews-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #reviews-list li {
+    margin: 20px;
+    padding: 12px;
+    background-color: #fff;
+    display: block;
+    list-style-type: none;
+    overflow: hidden;
+    position: relative;
+  }
+  #reviews-list li p {
+    margin: 0 0 10px;
+  }
+  #restaurant-hours {
+    margin: 0 12px 20px;
+  }
+  #restaurant-hours td {
+    color: #666;
+  }
+  #add-review-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  #add-review {
+    height: 40px;
+    background: #0b72b7;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  .switch input {display:none;}
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #0b72b7;
+  }
+  input:focus + .slider {
+    box-shadow: 0 0 1px #0b72b7;
+  }
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
 
-    /* ====================== Media Queries ====================== */
-    @media only screen and (min-width: 960px) {
-    	#restaurants-list {
-    		margin: 30px calc((100% - 960px) / 2) 0;
-    	}
+  /* ====================== Media Queries ====================== */
+  @media only screen and (min-width: 960px) {
+    #restaurants-list {
+      margin: 30px calc((100% - 960px) / 2) 0;
     }
-    @media only screen and (max-width: 700px) {
-    	#restaurants-list li:nth-child(odd) {
-    		margin: 15px 0;
-    	}
-    	.inside #maincontent {
-    		height: auto;
-    	}
-    	.inside .left-side {
-    		order: 2;
-    		width: 100%;
-    	}
-    	.inside .right-side {
-    		order: 1;
-    		width: 100%;
-    		height: 300px;
-    	}
+  }
+  @media only screen and (max-width: 700px) {
+    #restaurants-list li:nth-child(odd) {
+      margin: 15px 0;
     }
-    
-    </style>
+    .inside #maincontent {
+      height: auto;
+    }
+    .inside .left-side {
+      order: 2;
+      width: 100%;
+    }
+    .inside .right-side {
+      order: 1;
+      width: 100%;
+      height: 300px;
+    }
+  }
+  
+  </style>
 
-    <title>Restaurant Info</title>
+  <title>Restaurant Info</title>
 </head>
 
 <body class="inside">
-    <!-- Beginning header -->
-    <header>
-        <!-- Beginning nav -->
-        <nav>
-            <h1><a href="/">Restaurant Reviews</a></h1>
-        </nav>
-        <!-- Beginning breadcrumb -->
-        <ul id="breadcrumb" >
-            <li><a href="/">Home</a></li>
-        </ul>
-        <!-- End breadcrumb -->
-        <!-- End nav -->
-    </header>
-    <!-- End header -->
+  <!-- Beginning header -->
+  <header>
+    <!-- Beginning nav -->
+    <nav>
+      <h1><a href="/">Restaurant Reviews</a></h1>
+      <!-- Beginning breadcrumb -->
+      <ol id="breadcrumb" >
+        <li><a href="/">Home</a></li>
+      </ol>
+      <!-- End breadcrumb -->
+    </nav>
+    <!-- End nav -->
+  </header>
+  <!-- End header -->
 
-    <!-- Beginning main -->
-    <main id="maincontent">
-        <!-- Beginning restaurant -->
-        <div class="left-side">
-            <section id="restaurant-container">
-                <h1 id="restaurant-name"></h1>
-                <img id="restaurant-img" alt="logo">
-                <p id="restaurant-cuisine"></p>
-                <p id="restaurant-address"></p>
-                <table id="restaurant-hours"></table>
-            </section>
-
-            <!-- end restaurant -->
-            <!-- Beginning reviews -->
-            <section id="reviews-container">
-                <ul id="reviews-list"></ul>
-                <div id="add-review-container">
-                  <button id="add-review" name='add-review'>Add Review</button>
-                </div>
-            </section>
-            <!-- End reviews -->
+  <!-- Beginning main -->
+  <main id="maincontent">
+    <!-- Beginning restaurant -->
+    <div class="left-side">
+      <section id="restaurant-container">
+        <h1 id="restaurant-name"></h1>
+        <img id="restaurant-img" alt="logo">
+        <p id="restaurant-cuisine"></p>
+        <div id="favorite-restaurant">
+          <span>Favorite</span>
+          <label class="switch">
+            <input type="checkbox" name="is-favorite">
+            <span class="slider round"></span>
+          </label>
         </div>
+        <p id="restaurant-address"></p>
+        <table id="restaurant-hours"></table>
+      </section>
 
-        <a class="skip-main" href="#footer">Skip to footer</a>
+      <!-- end restaurant -->
+      <!-- Beginning reviews -->
+      <section id="reviews-container">
+        <ul id="reviews-list"></ul>
+        <div id="add-review-container">
+          <button id="add-review" name='add-review'>Add Review</button>
+        </div>  
+      </section>
+      <!-- End reviews -->
+    </div>
 
-        <div class="right-side">
-          <!-- Beginning map -->
-          <section id="map-container" role="application">
-            <div id="map"></div>
-          </section>
-          <!-- End map -->
-        </div>
-    </main>
-    <!-- End main -->
+    <a class="skip-main" href="#footer">Skip to footer</a>
 
-    <!-- Beginning footer -->
-    <footer id="footer">
-        Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
-    </footer>
-    <!-- End footer -->
+    <div class="right-side">
+      <!-- Beginning map -->
+      <section id="map-container" role="application">
+        <div id="map"></div>
+      </section>
+      <!-- End map -->
+    </div>
+  </main>
+  <!-- End main -->
 
-    <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
-    <link async rel="stylesheet" href="css/styles.css" media="screen">
+  <!-- Beginning footer -->
+  <footer id="footer">
+      Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+  <!-- End footer -->
 
-    <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/restaurant-info.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkbW-bs8erze38mhhbmWhh9hCtPSUYz0M&libraries=places&callback=initMap"></script>
+  <link async rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" media="screen" />
+  <link async rel="stylesheet" href="css/styles.css" media="screen">
+
+  <script type="application/javascript" charset="utf-8" src="js/all.min.js"></script>
+  <script type="application/javascript" charset="utf-8" src="js/restaurant-info.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkbW-bs8erze38mhhbmWhh9hCtPSUYz0M&libraries=places&callback=initMap"></script>
 
 </body>
 
