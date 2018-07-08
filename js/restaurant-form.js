@@ -16,7 +16,7 @@ listenFormSubmit = () => {
       for(let value of valuesArray) {
         values[value[0]] = value[1];
       }
-      values['id'] = id;
+      values['restaurant_id'] = parseInt(id);
       DBHelper.submitReview(values).then(() => {
         alert('Review submitted successfully');
         window.location.href = '/';

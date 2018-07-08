@@ -199,7 +199,7 @@ createRestaurantHTML = (restaurant) => {
     let photograph_m = restaurant.photograph + '-600-m.jpg';
     source2.setAttribute('data-srcset', `/img/${photograph_m}`);
     image.className = 'restaurant-img lazyload';
-    image.setAttribute('alt', restaurant.name || 'restaurant');
+    image.setAttribute('alt', `image of ${restaurant.name}` || 'image of restaurant');
     image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
 
     picture.append(source1);

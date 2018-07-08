@@ -182,6 +182,7 @@ class DBHelper {
         method: 'POST',
         body: JSON.stringify(review)
       }).then(response => {
+        DBHelper.fetchReviews(review.restaurant_id);
         return resolve(response);
       }).catch(error => {
         return reject(error);
